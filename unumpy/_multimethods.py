@@ -460,6 +460,12 @@ def var(a, axis=None, dtype=None, out=None, ddof=0, keepdims=False):
     return (a, mark_non_coercible(out))
 
 
+@create_numpy(_reduce_argreplacer)
+@all_of_type(ndarray)
+def ptp(a, axis=None, out=None, keepdims=False):
+    return (a, mark_non_coercible(out))
+
+
 # set routines
 @create_numpy(_self_argreplacer)
 @all_of_type(ndarray)

@@ -131,6 +131,7 @@ def replace_args_kwargs(method, backend, args, kwargs):
         (np.nanargmax, ([1, 3, 2],), {}),
         (np.nanmin, ([1, 3, 2],), {}),
         (np.nanmax, ([1, 3, 2],), {}),
+        (np.ptp, ([1, 3, 2],), {}),
         (np.unique, ([1, 2, 2],), {}),
         (np.in1d, ([1], [1, 2, 2]), {}),
         (np.isin, ([1], [1, 2, 2]), {}),
