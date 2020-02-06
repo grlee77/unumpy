@@ -562,6 +562,12 @@ def broadcast_to(array, shape, subok=False):
     return (array,)
 
 
+@create_numpy(_args_argreplacer)
+@all_of_type(ndarray)
+def meshgrid(*args, indexing="xy", sparse=False, copy=True):
+    return args
+
+
 def _first_argreplacer(args, kwargs, arrays1):
     def func(arrays, *args, **kwargs):
         return (arrays1,) + args, kwargs

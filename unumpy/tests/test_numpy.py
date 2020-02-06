@@ -221,6 +221,7 @@ def test_functions_coerce_with_dtype(backend, method, args, kwargs):
     "method, args, kwargs",
     [
         (np.broadcast_arrays, ([1, 2], [[3, 4]]), {}),
+        (np.meshgrid, ([1, 2, 3], [4, 5], [0, 1]), {}),
         (np.nonzero, ([3, 1, 2, 4],), {}),
         (np.where, ([[3, 1, 2, 4]],), {}),
     ],
