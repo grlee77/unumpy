@@ -687,16 +687,34 @@ def compress(condition, a, axis=None, out=None):
     return (condition, a, out)
 
 
-@create_numpy(_first2argreplacer)
+def _linspace_argreplacer(args, kwargs, arrays):
+    def func(a, b, num=50, endpoint=True, retstep=False, dtype=None, axis=0):
+        kw_out = dict(num=num, endpoint=endpoint, retstep=retstep, axis=axis)
+        kw_out["dtype"] = arrays[2]
+        return arrays[:2], kw_out
+
+    return func(*args, **kwargs)
+
+
+@create_numpy(_linspace_argreplacer)
 @all_of_type(ndarray)
 def linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0):
-    return (start, stop)
+    return (start, stop, mark_dtype(dtype))
 
 
-@create_numpy(_first2argreplacer)
+def _logspace_argreplacer(args, kwargs, arrays):
+    def func(a, b, num=50, endpoint=True, base=10, dtype=None, axis=0):
+        kw_out = dict(num=num, endpoint=endpoint, base=base, axis=axis)
+        kw_out["dtype"] = arrays[2]
+        return arrays[:2], kw_out
+
+    return func(*args, **kwargs)
+
+
+@create_numpy(_logspace_argreplacer)
 @all_of_type(ndarray)
 def logspace(start, stop, num=50, endpoint=True, base=10, dtype=None, axis=0):
-    return (start, stop)
+    return (start, stop, mark_dtype(dtype))
 
 
 @create_numpy(
