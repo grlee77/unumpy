@@ -35,7 +35,7 @@ try:
     LIST_BACKENDS.append((XndBackend, xnd.xnd))
     FULLY_TESTED_BACKENDS.append(XndBackend)
 except ImportError:
-    XndBackend = None
+    XndBackend = None  # type: ignore
     LIST_BACKENDS.append(
         pytest.param(
             (None, None), marks=pytest.mark.skip(reason="xnd is not importable")
