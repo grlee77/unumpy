@@ -169,6 +169,7 @@ def replace_args_kwargs(method, backend, args, kwargs):
         (np.count_nonzero, ([True, False, True, False],), {}),
         (np.linspace, (0, 100, 200), {}),
         (np.logspace, (0, [100, 20], 200), {}),
+        (np.diff, ([1, 3, 2],), {}),
     ],
 )
 def test_functions_coerce(backend, method, args, kwargs):

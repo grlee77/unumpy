@@ -899,6 +899,12 @@ def vstack(tup):
     return tup
 
 
+@create_numpy(_first_argreplacer)
+@all_of_type(ndarray)
+def diff(a, n=1, axis=-1):
+    return a
+
+
 class _Recurser(object):
     def __init__(self, recurse_if):
         self.recurse_if = recurse_if
