@@ -568,7 +568,33 @@ def broadcast_to(array, shape, subok=False):
     return (array,)
 
 
-@create_numpy(_args_argreplacer)
+def _meshgrid_default(*args, indexing="xy", sparse=False, copy=True):
+    ndim = len(args)
+
+    if indexing not in ["xy", "ij"]:
+        raise ValueError("Valid values for `indexing` are 'xy' and 'ij'.")
+
+    s0 = (1,) * ndim
+    output = [
+        asarray(x).reshape(s0[:i] + (-1,) + s0[i + 1 :]) for i, x in enumerate(args)
+    ]
+
+    if indexing == "xy" and ndim > 1:
+        # switch first and second axis
+        output[0].shape = (1, -1) + s0[2:]
+        output[1].shape = (-1, 1) + s0[2:]
+
+    if not sparse:
+        # Return the full N-D matrix (not only the 1-D vector)
+        output = broadcast_arrays(*output, subok=True)
+
+    if copy:
+        output = [x.copy() for x in output]
+
+    return output
+
+
+@create_numpy(_args_argreplacer, default=_meshgrid_default)
 @all_of_type(ndarray)
 def meshgrid(*args, indexing="xy", sparse=False, copy=True):
     return args
