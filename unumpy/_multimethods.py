@@ -687,6 +687,18 @@ def compress(condition, a, axis=None, out=None):
     return (condition, a, out)
 
 
+@create_numpy(_first2argreplacer)
+@all_of_type(ndarray)
+def linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0):
+    return (start, stop)
+
+
+@create_numpy(_first2argreplacer)
+@all_of_type(ndarray)
+def logspace(start, stop, num=50, endpoint=True, base=10, dtype=None, axis=0):
+    return (start, stop)
+
+
 @create_numpy(
     _first2argreplacer,
     default=lambda condition, arr: compress(ravel(condition), ravel(arr)),

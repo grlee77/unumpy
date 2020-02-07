@@ -68,6 +68,7 @@ EXCEPTIONS = {
     (DaskBackend, np.sort_complex),
     (DaskBackend, np.msort),
     (DaskBackend, np.searchsorted),
+    (DaskBackend, np.logspace),
 }
 
 
@@ -166,6 +167,8 @@ def replace_args_kwargs(method, backend, args, kwargs):
         (np.compress, ([True, False, True, False], [0, 1, 2, 3]), {}),
         (np.extract, ([True, False, True, False], [0, 1, 2, 3]), {}),
         (np.count_nonzero, ([True, False, True, False],), {}),
+        (np.linspace, (0, 100, 200), {}),
+        (np.logspace, (0, [100, 20], 200), {}),
     ],
 )
 def test_functions_coerce(backend, method, args, kwargs):
