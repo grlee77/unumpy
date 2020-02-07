@@ -937,7 +937,35 @@ def vstack(tup):
     return tup
 
 
-@create_numpy(_first_argreplacer)
+def _diff_default(a, n=1, axis=-1):
+    if n == 0:
+        return a
+    if n < 0:
+        raise ValueError("order must be non-negative but got " + repr(n))
+
+    a = asarray(a)
+    nd = a.ndim
+    if nd == 0:
+        raise ValueError("diff requires input that is at least one dimensional")
+    if axis < -nd or axis >= nd:
+        raise ValueError("axis out of range")
+    axis = axis % nd
+
+    slice1 = [slice(None)] * nd
+    slice2 = [slice(None)] * nd
+    slice1[axis] = slice(1, None)
+    slice2[axis] = slice(None, -1)
+    slice1 = tuple(slice1)
+    slice2 = tuple(slice2)
+
+    op = not_equal if a.dtype.kind == "b" else subtract
+    for _ in range(n):
+        a = op(a[slice1], a[slice2])
+
+    return a
+
+
+@create_numpy(_first_argreplacer, default=_diff_default)
 @all_of_type(ndarray)
 def diff(a, n=1, axis=-1):
     return a
