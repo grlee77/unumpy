@@ -717,7 +717,13 @@ def _logspace_argreplacer(args, kwargs, arrays):
     return func(*args, **kwargs)
 
 
-@create_numpy(_logspace_argreplacer)
+def _logspace_default(start, stop, num=50, endpoint=True, base=10, dtype=None, axis=0):
+    return base ** linspace(
+        start, stop, num=num, endpoint=endpoint, dtype=dtype, axis=axis
+    )
+
+
+@create_numpy(_logspace_argreplacer, default=_logspace_default)
 @all_of_type(ndarray)
 def logspace(start, stop, num=50, endpoint=True, base=10, dtype=None, axis=0):
     return (start, stop, mark_dtype(dtype))
