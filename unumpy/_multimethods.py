@@ -460,7 +460,13 @@ def var(a, axis=None, dtype=None, out=None, ddof=0, keepdims=False):
     return (a, mark_non_coercible(out))
 
 
-@create_numpy(_reduce_argreplacer)
+def _ptp_default(a, axis=None, out=None, keepdims=False):
+    result = max(a, axis=axis, out=out, keepdims=keepdims)
+    result -= min(a, axis=axis, out=None, keepdims=keepdims)
+    return result
+
+
+@create_numpy(_reduce_argreplacer, default=_ptp_default)
 @all_of_type(ndarray)
 def ptp(a, axis=None, out=None, keepdims=False):
     return (a, mark_non_coercible(out))
