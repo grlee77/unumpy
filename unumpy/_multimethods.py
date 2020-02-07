@@ -905,6 +905,12 @@ def diff(a, n=1, axis=-1):
     return a
 
 
+@create_numpy(_args_argreplacer)
+@all_of_type(ndarray)
+def gradient(a, *varargs, edge_order=1, axis=None):
+    return (a,) + varargs
+
+
 class _Recurser(object):
     def __init__(self, recurse_if):
         self.recurse_if = recurse_if

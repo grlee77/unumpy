@@ -228,6 +228,7 @@ def test_functions_coerce_with_dtype(backend, method, args, kwargs):
         (np.meshgrid, ([1, 2, 3], [4, 5], [0, 1]), {}),
         (np.nonzero, ([3, 1, 2, 4],), {}),
         (np.where, ([[3, 1, 2, 4]],), {}),
+        (np.gradient, ([[0, 1, 2], [3, 4, 5], [6, 7, 8]],), {}),
     ],
 )
 def test_multiple_output(backend, method, args, kwargs):
